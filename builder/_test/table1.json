@@ -1,0 +1,474 @@
+[
+	{
+		"TableCatalog": "def",
+		"TableSchema": "test",
+		"TableName": "build_test",
+		"TableType": "BASE TABLE",
+		"Engine": "InnoDB",
+		"Version": 10,
+		"RowFormat": "Dynamic",
+		"TableRows": 0,
+		"AvgRowLength": 0,
+		"DataLength": 16384,
+		"MaxDataLength": 0,
+		"IndexLength": 49152,
+		"DataFree": 0,
+		"AutoIncrement": {
+			"Int64": 1,
+			"Valid": true
+		},
+		"TableCollation": "utf8_general_ci",
+		"CheckSum": {
+			"String": "",
+			"Valid": false
+		},
+		"CreateOptions": "",
+		"TableComment": "",
+		"Columns": [
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "id",
+				"OrdinalPosition": 1,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "int",
+				"CharacterMaximumLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterOctetLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericPrecision": {
+					"Int64": 10,
+					"Valid": true
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": true
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterSetName": {
+					"String": "",
+					"Valid": false
+				},
+				"CollationName": {
+					"String": "",
+					"Valid": false
+				},
+				"ColumnType": "int(11) unsigned",
+				"ColumnKey": "PRI",
+				"Extra": "auto_increment",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "name",
+				"OrdinalPosition": 2,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "varchar",
+				"CharacterMaximumLength": {
+					"Int64": 64,
+					"Valid": true
+				},
+				"CharacterOctetLength": {
+					"Int64": 192,
+					"Valid": true
+				},
+				"NumericPrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterSetName": {
+					"String": "utf8",
+					"Valid": true
+				},
+				"CollationName": {
+					"String": "utf8_general_ci",
+					"Valid": true
+				},
+				"ColumnType": "varchar(64)",
+				"ColumnKey": "UNI",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "email",
+				"OrdinalPosition": 3,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "varchar",
+				"CharacterMaximumLength": {
+					"Int64": 255,
+					"Valid": true
+				},
+				"CharacterOctetLength": {
+					"Int64": 765,
+					"Valid": true
+				},
+				"NumericPrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterSetName": {
+					"String": "utf8",
+					"Valid": true
+				},
+				"CollationName": {
+					"String": "utf8_general_ci",
+					"Valid": true
+				},
+				"ColumnType": "varchar(255)",
+				"ColumnKey": "",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "gender",
+				"OrdinalPosition": 4,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "tinyint",
+				"CharacterMaximumLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterOctetLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericPrecision": {
+					"Int64": 3,
+					"Valid": true
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": true
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterSetName": {
+					"String": "",
+					"Valid": false
+				},
+				"CollationName": {
+					"String": "",
+					"Valid": false
+				},
+				"ColumnType": "tinyint(4)",
+				"ColumnKey": "MUL",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "country",
+				"OrdinalPosition": 5,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "int",
+				"CharacterMaximumLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterOctetLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericPrecision": {
+					"Int64": 10,
+					"Valid": true
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": true
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterSetName": {
+					"String": "",
+					"Valid": false
+				},
+				"CollationName": {
+					"String": "",
+					"Valid": false
+				},
+				"ColumnType": "int(11)",
+				"ColumnKey": "",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "created_at",
+				"OrdinalPosition": 6,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "NO",
+				"DataType": "datetime",
+				"CharacterMaximumLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterOctetLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericPrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": true
+				},
+				"CharacterSetName": {
+					"String": "",
+					"Valid": false
+				},
+				"CollationName": {
+					"String": "",
+					"Valid": false
+				},
+				"ColumnType": "datetime",
+				"ColumnKey": "",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			},
+			{
+				"TableCatalog": "def",
+				"TableSchema": "test",
+				"TableName": "build_test",
+				"ColumnName": "deleted_at",
+				"OrdinalPosition": 7,
+				"ColumnDefault": {
+					"String": "",
+					"Valid": false
+				},
+				"Nullable": "YES",
+				"DataType": "datetime",
+				"CharacterMaximumLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"CharacterOctetLength": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericPrecision": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"NumericScale": {
+					"Int64": 0,
+					"Valid": false
+				},
+				"DatatimePrecision": {
+					"Int64": 0,
+					"Valid": true
+				},
+				"CharacterSetName": {
+					"String": "",
+					"Valid": false
+				},
+				"CollationName": {
+					"String": "",
+					"Valid": false
+				},
+				"ColumnType": "datetime",
+				"ColumnKey": "MUL",
+				"Extra": "",
+				"Privileges": "select,insert,update,references",
+				"ColumnComment": "",
+				"GenerationExpression": ""
+			}
+		],
+		"Indices": [
+			[
+				{
+					"Table": "build_test",
+					"NonUniue": 0,
+					"KeyName": "PRIMARY",
+					"SeqInIndex": 1,
+					"ColumnName": "id",
+					"Collation": "A",
+					"Cardinality": 0,
+					"SubPart": {
+						"String": "",
+						"Valid": false
+					},
+					"Packed": {
+						"String": "",
+						"Valid": false
+					},
+					"Null": "",
+					"IndexType": "BTREE",
+					"Comment": "",
+					"IndexComment": ""
+				}
+			],
+			[
+				{
+					"Table": "build_test",
+					"NonUniue": 0,
+					"KeyName": "name",
+					"SeqInIndex": 1,
+					"ColumnName": "name",
+					"Collation": "A",
+					"Cardinality": 0,
+					"SubPart": {
+						"String": "",
+						"Valid": false
+					},
+					"Packed": {
+						"String": "",
+						"Valid": false
+					},
+					"Null": "",
+					"IndexType": "BTREE",
+					"Comment": "",
+					"IndexComment": ""
+				}
+			],
+			[
+				{
+					"Table": "build_test",
+					"NonUniue": 1,
+					"KeyName": "k1",
+					"SeqInIndex": 1,
+					"ColumnName": "deleted_at",
+					"Collation": "A",
+					"Cardinality": 0,
+					"SubPart": {
+						"String": "",
+						"Valid": false
+					},
+					"Packed": {
+						"String": "",
+						"Valid": false
+					},
+					"Null": "YES",
+					"IndexType": "BTREE",
+					"Comment": "",
+					"IndexComment": ""
+				}
+			],
+			[
+				{
+					"Table": "build_test",
+					"NonUniue": 1,
+					"KeyName": "k2",
+					"SeqInIndex": 1,
+					"ColumnName": "gender",
+					"Collation": "A",
+					"Cardinality": 0,
+					"SubPart": {
+						"String": "",
+						"Valid": false
+					},
+					"Packed": {
+						"String": "",
+						"Valid": false
+					},
+					"Null": "",
+					"IndexType": "BTREE",
+					"Comment": "",
+					"IndexComment": ""
+				},
+				{
+					"Table": "build_test",
+					"NonUniue": 1,
+					"KeyName": "k2",
+					"SeqInIndex": 2,
+					"ColumnName": "country",
+					"Collation": "A",
+					"Cardinality": 0,
+					"SubPart": {
+						"String": "",
+						"Valid": false
+					},
+					"Packed": {
+						"String": "",
+						"Valid": false
+					},
+					"Null": "",
+					"IndexType": "BTREE",
+					"Comment": "",
+					"IndexComment": ""
+				}
+			]
+		]
+	}
+]
