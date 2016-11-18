@@ -64,7 +64,7 @@ func (m *Column) HasComment() bool {
 func (m *Column) FormatDefault() string {
 	var def string
 	switch m.DataType {
-	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext":
+	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext", "date", "datetime":
 		def = QuoteString(m.ColumnDefault.String)
 	default:
 		def = m.ColumnDefault.String
