@@ -21,12 +21,12 @@ var GlobalFlags = []cli.Flag{
 	},
 	cli.StringFlag{
 		Name:   "schema, s",
-		Usage:  "database name (requires)",
+		Usage:  "database name (required)",
 		Hidden: false,
 	},
 	cli.StringFlag{
 		Name:   "data-source, d",
-		Usage:  "data source name like '[username[:password]@][tcp[(address:port)]]' (requires)",
+		Usage:  "data source name like '[username[:password]@][tcp[(address:port)]]' (required)",
 		Hidden: false,
 	},
 }
@@ -53,7 +53,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to JSON file directory (requires)",
+				Usage:  "path to JSON file directory (required)",
 				Hidden: false,
 			},
 		},
@@ -66,7 +66,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to CSV file directory (requires)",
+				Usage:  "path to CSV file directory (required)",
 				Hidden: false,
 			},
 		},
@@ -79,7 +79,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to export directory (requires)",
+				Usage:  "path to export directory (required)",
 				Hidden: false,
 			},
 			cli.StringFlag{
