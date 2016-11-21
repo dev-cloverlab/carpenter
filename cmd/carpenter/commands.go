@@ -33,10 +33,10 @@ var GlobalFlags = []cli.Flag{
 
 var Commands = []cli.Command{
 	{
-		Name:   "export",
+		Name:   "design",
 		Usage:  "Export table structure as JSON string",
 		Before: command.Before,
-		Action: command.CmdExport,
+		Action: command.CmdDesign,
 		Flags: []cli.Flag{
 			cli.BoolFlag{
 				Name:   "pretty, p",
@@ -59,14 +59,32 @@ var Commands = []cli.Command{
 		},
 	},
 	{
-		Name:   "seed",
-		Usage:  "Seed CSV to table",
+		Name:   "import",
+		Usage:  "Import CSV to table",
 		Before: command.Before,
 		Action: command.CmdSeed,
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
 				Usage:  "path to CSV file directory (requires)",
+				Hidden: false,
+			},
+		},
+	},
+	{
+		Name:   "export",
+		Usage:  "Export CSV to table",
+		Before: command.Before,
+		Action: command.CmdExport,
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:   "dir, d",
+				Usage:  "path to export directory (requires)",
+				Hidden: false,
+			},
+			cli.StringFlag{
+				Name:   "regexp, r",
+				Usage:  "regular expression for exporting table (default all)",
 				Hidden: false,
 			},
 		},
