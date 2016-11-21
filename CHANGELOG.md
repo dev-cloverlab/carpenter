@@ -1,3 +1,25 @@
+## 0.2.0 (2016-11-21)
+
+- Add export subcommand
+- Rename subcommand export to design 
+
+### Added
+
+- Added subcommand to export table data as CSV
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Adjust the maximum number of MySQL connections
+
+
 ## 0.1.1 (2016-11-15)
 
 Bug fixed
