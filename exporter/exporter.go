@@ -2,24 +2,24 @@ package exporter
 
 import (
 	"database/sql"
-	"encoding/json"
+	"strings"
 
 	"github.com/dev-cloverlab/carpenter/dialect/mysql"
 )
 
-func Export(db *sql.DB, pretty bool, schema string, tableNames ...string) ([]byte, error) {
-	tables, err := mysql.GetTables(db, schema, tableNames...)
+func Export(db *sql.DB, schema string, tableName string) (string, error) {
+	cnk, err := mysql.GetChunk(db, tableName, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	var buf []byte
-	if pretty {
-		buf, err = json.MarshalIndent(tables, "", "\t")
-	} else {
-		buf, err = json.Marshal(tables)
+	csv := make([]string, 0, len(cnk.Seeds)+1)
+	csv = append(csv, strings.Join(cnk.ColumnNames, ","))
+	for _, seed := range cnk.Seeds {
+		cols := make([]string, 0, len(cnk.ColumnNames))
+		for i := range seed.ColumnData {
+			cols = append(cols, seed.ToColumnValue(i))
+		}
+		csv = append(csv, strings.Join(cols, ","))
 	}
-	if err != nil {
-		return nil, err
-	}
-	return buf, nil
+	return strings.Join(csv, "\n"), nil
 }

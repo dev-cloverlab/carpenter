@@ -6,16 +6,19 @@ Carpenter is a tool to manage DB schema and data
 
 Carpenter has three sub commands.
 
-- export
-    - `export` command is export table structure as JSON string
+- design
+    - `design` command is export table structure as JSON string
 - build
     - `build` command is migrate table from JSON files
-- seed
-    - `seed` command is seed table data from CSV files
+- export
+    - `export` command is export table data as CSV string
+- import
+    - `import` command is import table data from CSV files
 
 ## Usage
 
 ```bash
+
 NAME:
    carpenter - Carpenter is a tool to manage DB schema and data
 
@@ -23,15 +26,16 @@ USAGE:
    carpenter [global options] command [command options] [arguments...]
    
 VERSION:
-   0.1.0
+   0.2.0
    
 AUTHOR(S):
    hatajoe <hatanaka@cloverlab.jp> 
    
 COMMANDS:
-     export   Export table structure as JSON string
+     design   Export table structure as JSON string
      build    Build(Migrate) table from specified JSON string
-     seed     Seed CSV to table
+     import   Import CSV to table
+     export   Export CSV to table
      help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -43,14 +47,14 @@ GLOBAL OPTIONS:
    --version, -v                  print the version
 ```
 
-### export
+### design
 
 ```bash
 NAME:
-   carpenter export - Export table structure as JSON string
+   carpenter design - Export table structure as JSON string
 
 USAGE:
-   carpenter export [command options] [arguments...]
+   carpenter design [command options] [arguments...]
 
 OPTIONS:
    --pretty, -p  show pretty output (default off)
@@ -69,14 +73,14 @@ OPTIONS:
    --dir value, -d value  path to JSON file directory (required)
 ```
 
-### seed
+### import
 
 ```bash
 NAME:
-   carpenter seed - Seed CSV to table
+   carpenter import - Import CSV to table
 
 USAGE:
-   carpenter seed [command options] [arguments...]
+   carpenter import [command options] [arguments...]
 
 OPTIONS:
    --dir value, -d value  path to CSV file directory (required)
@@ -88,12 +92,32 @@ NOTICE:
 - If you include a line break, please enclose it in double quotation marks
 - Please do not put double quotes in double quotes
 
+### export
+
+```bash
+NAME:
+   carpenter export - Export CSV to table
+
+USAGE:
+   carpenter export [command options] [arguments...]
+
+OPTIONS:
+   --dir value, -d value     path to export directory (required)
+   --regexp value, -r value  regular expression for exporting table (default all)
+   
+```
+
 ## Install
+
+```
+% brew tap dev-cloverlab/carpenter
+% brew install dev-cloverlab/carpenter
+```
 
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/dev-cloverlab/carpenter/cmd/carpenter
+$ go get github.com/dev-cloverlab/carpenter/cmd/carpenter
 ```
 
 ## Contribution

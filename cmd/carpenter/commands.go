@@ -21,22 +21,22 @@ var GlobalFlags = []cli.Flag{
 	},
 	cli.StringFlag{
 		Name:   "schema, s",
-		Usage:  "database name (requires)",
+		Usage:  "database name (required)",
 		Hidden: false,
 	},
 	cli.StringFlag{
 		Name:   "data-source, d",
-		Usage:  "data source name like '[username[:password]@][tcp[(address:port)]]' (requires)",
+		Usage:  "data source name like '[username[:password]@][tcp[(address:port)]]' (required)",
 		Hidden: false,
 	},
 }
 
 var Commands = []cli.Command{
 	{
-		Name:   "export",
+		Name:   "design",
 		Usage:  "Export table structure as JSON string",
 		Before: command.Before,
-		Action: command.CmdExport,
+		Action: command.CmdDesign,
 		Flags: []cli.Flag{
 			cli.BoolFlag{
 				Name:   "pretty, p",
@@ -53,20 +53,38 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to JSON file directory (requires)",
+				Usage:  "path to JSON file directory (required)",
 				Hidden: false,
 			},
 		},
 	},
 	{
-		Name:   "seed",
-		Usage:  "Seed CSV to table",
+		Name:   "import",
+		Usage:  "Import CSV to table",
 		Before: command.Before,
 		Action: command.CmdSeed,
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to CSV file directory (requires)",
+				Usage:  "path to CSV file directory (required)",
+				Hidden: false,
+			},
+		},
+	},
+	{
+		Name:   "export",
+		Usage:  "Export CSV to table",
+		Before: command.Before,
+		Action: command.CmdExport,
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:   "dir, d",
+				Usage:  "path to export directory (required)",
+				Hidden: false,
+			},
+			cli.StringFlag{
+				Name:   "regexp, r",
+				Usage:  "regular expression for exporting table (default all)",
 				Hidden: false,
 			},
 		},

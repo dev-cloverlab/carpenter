@@ -1,4 +1,4 @@
-package exporter
+package designer
 
 import (
 	"bytes"
@@ -29,12 +29,12 @@ func init() {
 
 func TestMain(m *testing.M) {
 	code := m.Run()
-	db.Exec("drop table if exists `export_test`")
+	db.Exec("drop table if exists `design_test`")
 	os.Exit(code)
 }
 
 func TestExport(t *testing.T) {
-	_, err := db.Exec("create table if not exists `export_test` (\n" +
+	_, err := db.Exec("create table if not exists `design_test` (\n" +
 		"	`id` int(11) unsigned not null auto_increment,\n" +
 		"	`name` varchar(64) not null default'',\n" +
 		"	`email` varchar(255) not null default'',\n" +
@@ -52,7 +52,7 @@ func TestExport(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	a, err := Export(db, false, schema, "export_test")
+	a, err := Export(db, false, schema, "design_test")
 	if err != nil {
 		t.Fatal(err)
 	}
