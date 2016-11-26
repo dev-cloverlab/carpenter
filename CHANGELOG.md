@@ -1,3 +1,24 @@
+## 0.2.1 (2016-11-26)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Always a difference between schemas with different names 
+
+
 ## 0.2.0 (2016-11-21)
 
 - Add export subcommand
