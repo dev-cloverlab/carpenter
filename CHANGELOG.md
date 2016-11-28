@@ -1,3 +1,24 @@
+## 0.2.3 (2016-11-28)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Do not compare privileges
+
+
 ## 0.2.2 (2016-11-28)
 
 - Bug Fix
