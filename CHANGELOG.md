@@ -1,3 +1,24 @@
+## 0.2.2 (2016-11-28)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fix error when using MySQL5.5
+
+
 ## 0.2.1 (2016-11-26)
 
 - Bug Fix
