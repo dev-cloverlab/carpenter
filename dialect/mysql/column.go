@@ -21,7 +21,6 @@ type (
 		CharacterOctetLength   JsonNullInt64
 		NumericPrecision       JsonNullInt64
 		NumericScale           JsonNullInt64
-		DatetimePrecision      JsonNullInt64
 		CharacterSetName       JsonNullString
 		CollationName          JsonNullString
 		ColumnType             string
@@ -176,7 +175,6 @@ func GetColumns(db *sql.DB, schema string) ([]*Column, error) {
 		"CHARACTER_OCTET_LENGTH",
 		"NUMERIC_PRECISION",
 		"NUMERIC_SCALE",
-		"DATETIME_PRECISION",
 		"CHARACTER_SET_NAME",
 		"COLLATION_NAME",
 		"COLUMN_TYPE",
@@ -208,7 +206,6 @@ func GetColumns(db *sql.DB, schema string) ([]*Column, error) {
 			&column.CharacterOctetLength,
 			&column.NumericPrecision,
 			&column.NumericScale,
-			&column.DatetimePrecision,
 			&column.CharacterSetName,
 			&column.CollationName,
 			&column.ColumnType,
