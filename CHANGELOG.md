@@ -1,3 +1,24 @@
+## 0.2.3 (2016-11-29)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Unescape double escape string
+
+
 ## 0.2.3 (2016-11-28)
 
 - Bug Fix

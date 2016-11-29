@@ -177,7 +177,7 @@ func toString(data interface{}) (str string) {
 	case nil:
 		str = "null"
 	case string:
-		str = QuoteString(data.(string))
+		str = QuoteString(Unescape(data.(string)))
 	case time.Time:
 		str = QuoteString(data.(time.Time).Format(TimeFmt))
 	default:
