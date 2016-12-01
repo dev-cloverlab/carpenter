@@ -71,13 +71,18 @@ func (m Indices) ToSQL() []string {
 	indices := m.getSortedIndices(m.GetSortedKeys())
 	indexSQLs := make([]string, 0, len(m))
 	for _, index := range indices {
+		sql := ""
+		comment := index[0].Comment
 		switch {
 		case index.IsPrimaryKey():
-			indexSQLs = append(indexSQLs, fmt.Sprintf("primary key (%s)", strings.Join(index.ColumnNames(), ",")))
+			sql = fmt.Sprintf("primary key (%s)", strings.Join(index.ColumnNames(), ","))
 		case !index.IsPrimaryKey() && index.IsUniqueKey():
-			indexSQLs = append(indexSQLs, fmt.Sprintf("unique key %s (%s)", Quote(index.GetKeyName()), strings.Join(index.ColumnNames(), ",")))
+			sql = fmt.Sprintf("unique key %s (%s)", Quote(index.GetKeyName()), strings.Join(index.ColumnNames(), ","))
 		default:
-			indexSQLs = append(indexSQLs, fmt.Sprintf("key %s (%s)", Quote(index.GetKeyName()), strings.Join(index.KeyNamesWithSubPart(), ",")))
+			sql = fmt.Sprintf("key %s (%s)", Quote(index.GetKeyName()), strings.Join(index.KeyNamesWithSubPart(), ","))
+		}
+		if comment != "" {
+			indexSQLs = append(indexSQLs, fmt.Sprintf("%s comment %s", sql, QuoteString(comment)))
 		}
 	}
 	return indexSQLs
