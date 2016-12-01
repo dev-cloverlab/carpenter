@@ -82,8 +82,9 @@ func (m Indices) ToSQL() []string {
 			sql = fmt.Sprintf("key %s (%s)", Quote(index.GetKeyName()), strings.Join(index.KeyNamesWithSubPart(), ","))
 		}
 		if comment != "" {
-			indexSQLs = append(indexSQLs, fmt.Sprintf("%s comment %s", sql, QuoteString(comment)))
+			sql = fmt.Sprintf("%s comment %s", sql, QuoteString(comment))
 		}
+		indexSQLs = append(indexSQLs, sql)
 	}
 	return indexSQLs
 }
