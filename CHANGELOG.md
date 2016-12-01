@@ -1,4 +1,25 @@
-## 0.2.3 (2016-11-29)
+## 0.2.5 (2016-12-01)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Support index comment
+
+
+## 0.2.4 (2016-11-29)
 
 - Bug Fix
 
