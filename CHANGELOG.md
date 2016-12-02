@@ -1,3 +1,24 @@
+## 0.2.6 (2016-12-02)
+
+- Bug Fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Support bigint export
+
+
 ## 0.2.5 (2016-12-01)
 
 - Bug Fix

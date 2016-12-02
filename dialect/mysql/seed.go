@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -229,6 +230,8 @@ func GetChunk(db *sql.DB, table string, colName *string) (*Chunk, error) {
 			if b, ok := holders[i].([]byte); ok {
 				if v, err = strconv.ParseFloat(string(b), 64); err != nil {
 					v = string(b)
+				} else {
+					v = json.Number(string(b))
 				}
 			} else {
 				v = holders[i]
