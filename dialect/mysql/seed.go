@@ -228,10 +228,8 @@ func GetChunk(db *sql.DB, table string, colName *string) (*Chunk, error) {
 			var v interface{}
 			var err error
 			if b, ok := holders[i].([]byte); ok {
-				if v, err = strconv.ParseFloat(string(b), 64); err != nil {
+				if v, err = strconv.ParseFloat(string(json.Number(string(b))), 64); err != nil {
 					v = string(b)
-				} else {
-					v = json.Number(string(b))
 				}
 			} else {
 				v = holders[i]
