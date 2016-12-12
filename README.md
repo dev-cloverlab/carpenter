@@ -57,8 +57,9 @@ USAGE:
    commands design [command options] [arguments...]
 
 OPTIONS:
-   --separate, -s  output for each table (default off)
-   --pretty, -p    pretty output (default off)
+   --separate, -s         output for each table (default off)
+   --pretty, -p           pretty output (default off)
+   --dir value, -d value  path to export directory (default execution dir)
 ```
 
 ### build

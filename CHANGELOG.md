@@ -1,3 +1,23 @@
+## 0.3.1 (2016-12-12)
+
+Bug fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- design command: STDOUT output now removed
+
+### Fixed
+
+- Enables specification of design option `-s`
+
 ## 0.3.0 (2016-12-12)
 
 - design command: Change export format 
