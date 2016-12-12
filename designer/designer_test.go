@@ -52,11 +52,15 @@ func TestExport(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	a, err := Export(db, false, schema, "design_test")
+	buf, err := Export(db, schema, "design_test")
 	if err != nil {
 		t.Fatal(err)
 	}
-	actual := []*mysql.Table{}
+	a, err := json.Marshal(buf)
+	if err != nil {
+		t.Error(err)
+	}
+	actual := mysql.Tables{}
 
 	decoder := json.NewDecoder(bytes.NewBuffer(a))
 	decoder.UseNumber()
@@ -68,7 +72,7 @@ func TestExport(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := []*mysql.Table{}
+	expected := mysql.Tables{}
 	if err := json.Unmarshal(e, &expected); err != nil {
 		t.Error(err)
 	}
