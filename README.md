@@ -51,13 +51,14 @@ GLOBAL OPTIONS:
 
 ```bash
 NAME:
-   carpenter design - Export table structure as JSON string
+   commands design - Export table structure as JSON string
 
 USAGE:
-   carpenter design [command options] [arguments...]
+   commands design [command options] [arguments...]
 
 OPTIONS:
-   --pretty, -p  show pretty output (default off)
+   --separate, -s  output for each table (default off)
+   --pretty, -p    pretty output (default off)
 ```
 
 ### build

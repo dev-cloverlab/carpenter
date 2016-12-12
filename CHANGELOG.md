@@ -1,3 +1,29 @@
+## 0.3.0 (2016-12-12)
+
+- design command: Change export format 
+- design command: Add `-s` option
+- Fix test
+- Fix bug
+
+### Added
+
+- Add separate option to design command 
+- Change STDOUT output to files for each tables (if `-s` option specified)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- design command: STDOUT output now removed
+
+### Fixed
+
+- Type translation bug fixed
+- Test
+
+
 ## 0.2.6 (2016-12-02)
 
 - Bug Fix
