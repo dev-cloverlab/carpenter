@@ -17,6 +17,14 @@ import (
 func CmdExport(c *cli.Context) {
 	// Write your code here
 	dirPath := c.String("dir")
+	if dirPath == "" {
+		var err error
+		dirPath, err = os.Getwd()
+		if err != nil {
+			panic(fmt.Errorf("err: os.Getwd failed for reason %s", err))
+		}
+	}
+
 	re := c.String("regexp")
 	tableNameRegexp := regexp.MustCompile(re)
 	tables, err := mysql.GetTables(db, schema)
