@@ -39,8 +39,13 @@ var Commands = []cli.Command{
 		Action: command.CmdDesign,
 		Flags: []cli.Flag{
 			cli.BoolFlag{
+				Name:   "separate, s",
+				Usage:  "output for each table (default off)",
+				Hidden: false,
+			},
+			cli.BoolFlag{
 				Name:   "pretty, p",
-				Usage:  "show pretty output (default off)",
+				Usage:  "pretty output (default off)",
 				Hidden: false,
 			},
 		},
