@@ -48,6 +48,11 @@ var Commands = []cli.Command{
 				Usage:  "pretty output (default off)",
 				Hidden: false,
 			},
+			cli.StringFlag{
+				Name:   "dir, d",
+				Usage:  "path to export directory (default execution dir)",
+				Hidden: false,
+			},
 		},
 	},
 	{
@@ -84,7 +89,7 @@ var Commands = []cli.Command{
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:   "dir, d",
-				Usage:  "path to export directory (required)",
+				Usage:  "path to export directory (default execution dir)",
 				Hidden: false,
 			},
 			cli.StringFlag{
