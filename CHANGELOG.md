@@ -1,3 +1,24 @@
+## 0.4.0 (2017-01-27)
+
+Revert version
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- revert 0.2.4
+
+### Fixed
+
+- Nothing
+
+
 ## 0.3.1 (2016-12-12)
 
 Bug fix
