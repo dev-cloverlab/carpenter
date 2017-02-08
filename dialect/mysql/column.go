@@ -3,6 +3,7 @@ package mysql
 import (
 	"database/sql"
 	"fmt"
+	"reflect"
 	"sort"
 	"strings"
 )
@@ -56,6 +57,10 @@ func (m *Column) HasDefault() bool {
 	return m.ColumnDefault.Valid
 }
 
+func (m *Column) HasCharacterSetName() bool {
+	return m.CharacterSetName.Valid
+}
+
 func (m *Column) HasComment() bool {
 	return m.ColumnComment != ""
 }
@@ -69,6 +74,10 @@ func (m *Column) FormatDefault() string {
 		def = m.ColumnDefault.String
 	}
 	return def
+}
+
+func (m *Column) CompareCharacterSet(col *Column) bool {
+	return reflect.DeepEqual(m.CharacterSetName, col.CharacterSetName)
 }
 
 func (m *Column) ToSQL() string {
@@ -98,6 +107,10 @@ func (m *Column) ToDropSQL() string {
 
 func (m *Column) ToModifySQL() string {
 	return fmt.Sprintf("modify %s", m.ToSQL())
+}
+
+func (m *Column) ToModifyCharsetSQL() string {
+	return fmt.Sprintf("modify %s %s %s", Quote(m.ColumnName), m.ColumnType, fmt.Sprintf("character set %s collate %s", m.CharacterSetName.String, m.CollationName.String))
 }
 
 func (m Columns) ToSQL() []string {

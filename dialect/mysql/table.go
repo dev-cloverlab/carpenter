@@ -47,12 +47,8 @@ func (m *Table) GetFormatedTableName() string {
 }
 
 func (m *Table) GetCharset() string {
-	var charset string
-	switch {
-	default:
-		charset = "utf8"
-	}
-	return charset
+	seg := strings.Split(m.TableCollation, "_")
+	return seg[0]
 }
 
 func (m *Table) ToAlterSQL(sqls []string) string {
@@ -80,6 +76,10 @@ func (m *Table) ToCreateSQL() string {
 
 func (m *Table) ToDropSQL() string {
 	return fmt.Sprintf(dropSQLFmt, m.GetFormatedTableName())
+}
+
+func (m *Table) ToConvertCharsetSQL() string {
+	return fmt.Sprintf("convert to character set %s", m.GetCharset())
 }
 
 func (m Tables) Contains(t *Table) bool {
