@@ -1,3 +1,25 @@
+## 0.4.1 (2017-02-08)
+
+Add migrate table collation
+
+### Added
+
+- build
+    - sync table and column character set
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
+
 ## 0.4.0 (2017-01-27)
 
 Revert version

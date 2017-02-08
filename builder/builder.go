@@ -24,6 +24,12 @@ func Build(db *sql.DB, old, new *mysql.Table) (queries []string, err error) {
 	if q := willDrop(old, new); len(q) > 0 {
 		queries = append(queries, q)
 	}
+	if q := willAlterTableCharacterSet(old, new); len(q) > 0 {
+		queries = append(queries, q)
+	}
+	if q := willAlterColumnCharacterSet(old, new); len(q) > 0 {
+		queries = append(queries, q...)
+	}
 	if q := willAlter(old, new); len(q) > 0 {
 		queries = append(queries, q)
 	}
@@ -44,6 +50,39 @@ func willDrop(old, new *mysql.Table) string {
 	return ""
 }
 
+func willAlterTableCharacterSet(old, new *mysql.Table) string {
+	if old == nil || new == nil {
+		return ""
+	}
+
+	alter := []string{}
+	if old.GetCharset() != new.GetCharset() {
+		alter = append(alter, new.ToConvertCharsetSQL())
+	}
+	old.TableCollation = new.TableCollation
+
+	return new.ToAlterSQL(alter)
+}
+
+func willAlterColumnCharacterSet(old, new *mysql.Table) []string {
+	newCols := new.Columns.GroupByColumnName()
+	oldCols := old.Columns.GroupByColumnName()
+	sqls := []string{}
+	for _, colName := range new.Columns.GetSortedColumnNames() {
+		if _, ok := oldCols[colName]; !ok {
+			continue
+		}
+		newCol := newCols[colName]
+		oldCol := oldCols[colName]
+		if oldCol.CompareCharacterSet(newCol) {
+			continue
+		}
+		oldCols[colName].CollationName = newCol.CollationName
+		sqls = append(sqls, new.ToAlterSQL([]string{newCol.ToModifyCharsetSQL()}))
+	}
+	return sqls
+}
+
 func willAlter(old, new *mysql.Table) string {
 	if old == nil || new == nil {
 		return ""
@@ -51,6 +90,7 @@ func willAlter(old, new *mysql.Table) string {
 	if reflect.DeepEqual(old, new) {
 		return ""
 	}
+
 	alter := []string{}
 	alter = append(alter, willDropIndex(old, new)...)
 	alter = append(alter, willDropColumn(old, new)...)
