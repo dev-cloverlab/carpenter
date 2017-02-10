@@ -58,13 +58,17 @@ func willAlterTableCharacterSet(old, new *mysql.Table) string {
 	alter := []string{}
 	if old.GetCharset() != new.GetCharset() {
 		alter = append(alter, new.ToConvertCharsetSQL())
+		old.TableCollation = new.TableCollation
 	}
-	old.TableCollation = new.TableCollation
 
 	return new.ToAlterSQL(alter)
 }
 
 func willAlterColumnCharacterSet(old, new *mysql.Table) []string {
+	if old == nil || new == nil {
+		return []string{}
+	}
+
 	newCols := new.Columns.GroupByColumnName()
 	oldCols := old.Columns.GroupByColumnName()
 	sqls := []string{}
