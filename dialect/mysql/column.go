@@ -121,21 +121,25 @@ func (m Columns) ToSQL() []string {
 	return sqls
 }
 
+func (m *Column) AppendPos(all Columns) string {
+	pos := "first"
+	if m.OrdinalPosition > 1 {
+		before := m.OrdinalPosition - 1
+		for _, v := range all {
+			if v.OrdinalPosition != before {
+				continue
+			}
+			pos = fmt.Sprintf("after %s", Quote(v.ColumnName))
+			break
+		}
+	}
+	return pos
+}
+
 func (m Columns) ToAddSQL(all Columns) []string {
 	sqls := make([]string, 0, len(m))
 	for _, col := range m {
-		pos := "first"
-		if col.OrdinalPosition > 1 {
-			before := col.OrdinalPosition - 1
-			for _, v := range all {
-				if v.OrdinalPosition != before {
-					continue
-				}
-				pos = fmt.Sprintf("after %s", Quote(v.ColumnName))
-				break
-			}
-		}
-		sqls = append(sqls, col.ToAddSQL(pos))
+		sqls = append(sqls, col.ToAddSQL(col.AppendPos(all)))
 	}
 	return sqls
 }
