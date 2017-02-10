@@ -58,13 +58,17 @@ func willAlterTableCharacterSet(old, new *mysql.Table) string {
 	alter := []string{}
 	if old.GetCharset() != new.GetCharset() {
 		alter = append(alter, new.ToConvertCharsetSQL())
+		old.TableCollation = new.TableCollation
 	}
-	old.TableCollation = new.TableCollation
 
 	return new.ToAlterSQL(alter)
 }
 
 func willAlterColumnCharacterSet(old, new *mysql.Table) []string {
+	if old == nil || new == nil {
+		return []string{}
+	}
+
 	newCols := new.Columns.GroupByColumnName()
 	oldCols := old.Columns.GroupByColumnName()
 	sqls := []string{}
@@ -134,18 +138,17 @@ func willModifyColumn(old, new *mysql.Table) []string {
 		oldCol := oldCols[colName]
 		oldTableSchema := oldCol.TableSchema
 		oldColumnKey := oldCol.ColumnKey
-		oldOrdinalPosition := oldCol.OrdinalPosition
 		oldPrivileges := oldCol.Privileges
 		oldCol.TableSchema = newCol.TableSchema
 		oldCol.ColumnKey = newCol.ColumnKey
-		oldCol.OrdinalPosition = newCol.OrdinalPosition
 		oldCol.Privileges = newCol.Privileges
 		if !reflect.DeepEqual(oldCol, newCol) {
-			sqls = append(sqls, newCol.ToModifySQL())
+			sql := newCol.ToModifySQL()
+			sql = fmt.Sprintf("%s %s", sql, newCol.AppendPos(new.Columns))
+			sqls = append(sqls, sql)
 		}
 		oldCol.TableSchema = oldTableSchema
 		oldCol.ColumnKey = oldColumnKey
-		oldCol.OrdinalPosition = oldOrdinalPosition
 		oldCol.Privileges = oldPrivileges
 	}
 	return sqls

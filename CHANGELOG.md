@@ -1,3 +1,24 @@
+## 0.4.2 (2017-02-10)
+
+Minor feature released
+
+### Added
+
+- resolve column position modification 
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fix SEGV error 
+
+
 ## 0.4.1 (2017-02-08)
 
 Add migrate table collation
