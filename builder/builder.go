@@ -60,7 +60,6 @@ func willAlterTableCharacterSet(old, new *mysql.Table) string {
 		alter = append(alter, new.ToConvertCharsetSQL())
 		old.TableCollation = new.TableCollation
 	}
-
 	return new.ToAlterSQL(alter)
 }
 
@@ -101,6 +100,10 @@ func willAlter(old, new *mysql.Table) string {
 	alter = append(alter, willAddColumn(old, new)...)
 	alter = append(alter, willAddIndex(old, new)...)
 	alter = append(alter, willModifyColumn(old, new)...)
+	sql := willModifyPartition(old, new)
+	if sql != "" {
+		alter = append(alter, sql)
+	}
 	return new.ToAlterSQL(alter)
 }
 
@@ -152,6 +155,16 @@ func willModifyColumn(old, new *mysql.Table) []string {
 		oldCol.Privileges = oldPrivileges
 	}
 	return sqls
+}
+
+func willModifyPartition(old, new *mysql.Table) string {
+	if reflect.DeepEqual(old.Partitions, new.Partitions) {
+		return ""
+	}
+	if len(new.Partitions) <= 0 {
+		return ""
+	}
+	return new.Partitions.ToSQL()
 }
 
 func willAddIndex(old, new *mysql.Table) []string {
