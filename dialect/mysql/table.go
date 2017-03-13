@@ -29,6 +29,7 @@ type (
 		TableComment   string
 		Columns        Columns
 		Indices        Indices
+		Partitions     Partitions
 	}
 	Tables []*Table
 )
@@ -36,11 +37,15 @@ type (
 var (
 	createSQLFmt string = `create table if not exists %s (
 	%s
-) engine=%s default charset=%s`
+) engine=%s default charset=%s %s`
 	dropSQLFmt  string = `drop table if exists %s`
 	alterSQLFmt string = `alter table %s
 	%s`
 )
+
+func (m *Table) IsPartitioned() bool {
+	return m.CreateOptions == "partitioned"
+}
 
 func (m *Table) GetFormatedTableName() string {
 	return Quote(m.TableName)
@@ -69,9 +74,10 @@ func (m Tables) GetFormatedTableNames() []string {
 func (m *Table) ToCreateSQL() string {
 	columnSQLs := m.Columns.ToSQL()
 	indexSQLs := m.Indices.ToSQL()
+	partitionSQL := m.Partitions.ToSQL()
 	sqls := make([]string, 0, len(columnSQLs)+len(indexSQLs))
 	sqls = append(columnSQLs, indexSQLs...)
-	return fmt.Sprintf(createSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"), m.Engine, m.GetCharset())
+	return fmt.Sprintf(createSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"), m.Engine, m.GetCharset(), partitionSQL)
 }
 
 func (m *Table) ToDropSQL() string {
@@ -188,6 +194,13 @@ func GetTables(db *sql.DB, schema string, tableNames ...string) (Tables, error) 
 				continue
 			}
 			c = append(c, v)
+		}
+		if table.IsPartitioned() {
+			partitions, err := GetPartitions(db, table.TableSchema, table.TableName)
+			if err != nil {
+				return nil, err
+			}
+			tables[i].Partitions = partitions
 		}
 		tables[i].Columns = c
 		tables[i].Indices = indices
