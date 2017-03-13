@@ -1,5 +1,27 @@
 ## 0.4.2 (2017-02-10)
 
+Support partition table
+
+### Added
+
+- support partition table
+ - only "LINEAR KEY", "LINEAR HASH" and "RANGE COLUMNS" are supported
+ - supported alter only. drop and remove is not supported
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed a bug that will get a difference when table names contain uppercase letters 
+
+## 0.4.2 (2017-02-10)
+
 Minor feature released
 
 ### Added
