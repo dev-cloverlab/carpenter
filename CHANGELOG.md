@@ -1,4 +1,24 @@
-## 0.4.2 (2017-02-10)
+## 0.4.4 (2017-03-29)
+
+Bug fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed a bug that will get a difference when contains some partition information table columns
+
+## 0.4.3 (2017-03-13)
 
 Support partition table
 
