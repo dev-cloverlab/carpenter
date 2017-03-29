@@ -20,13 +20,6 @@ type (
 		PartitionExpression         string
 		SubpartitionExpression      JsonNullString
 		PartitionDescription        JsonNullString
-		TableRows                   int
-		AvgRowLength                int
-		DataLength                  int
-		MaxDataLength               JsonNullInt64
-		IndexLength                 int
-		DataFree                    int
-		Checksum                    JsonNullString
 		PartitionComment            string
 		Nodegroup                   string
 		TablespaceName              JsonNullString
@@ -77,13 +70,6 @@ func GetPartitions(db *sql.DB, schema string, tableName string) (Partitions, err
 		"PARTITION_EXPRESSION",
 		"SUBPARTITION_EXPRESSION",
 		"PARTITION_DESCRIPTION",
-		"TABLE_ROWS",
-		"AVG_ROW_LENGTH",
-		"DATA_LENGTH",
-		"MAX_DATA_LENGTH",
-		"INDEX_LENGTH",
-		"DATA_FREE",
-		"CHECKSUM",
 		"PARTITION_COMMENT",
 		"NODEGROUP",
 		"TABLESPACE_NAME",
@@ -110,13 +96,6 @@ func GetPartitions(db *sql.DB, schema string, tableName string) (Partitions, err
 			&partition.PartitionExpression,
 			&partition.SubpartitionExpression,
 			&partition.PartitionDescription,
-			&partition.TableRows,
-			&partition.AvgRowLength,
-			&partition.DataLength,
-			&partition.MaxDataLength,
-			&partition.IndexLength,
-			&partition.DataFree,
-			&partition.Checksum,
 			&partition.PartitionComment,
 			&partition.Nodegroup,
 			&partition.TablespaceName,
