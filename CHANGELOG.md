@@ -1,3 +1,23 @@
+## 0.4.4 (2017-07-07)
+
+Bug fix
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed a bug that syntax error occurred when SQL contains partition queries
+
 ## 0.4.4 (2017-03-29)
 
 Bug fix
