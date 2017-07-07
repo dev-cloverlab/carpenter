@@ -39,7 +39,7 @@ var (
 	%s
 ) engine=%s default charset=%s %s`
 	dropSQLFmt  string = `drop table if exists %s`
-	alterSQLFmt string = `alter table %s
+	alterSQLFmt string = `alter table %s %s
 	%s`
 )
 
@@ -56,11 +56,11 @@ func (m *Table) GetCharset() string {
 	return seg[0]
 }
 
-func (m *Table) ToAlterSQL(sqls []string) string {
+func (m *Table) ToAlterSQL(sqls []string, partitionSql string) string {
 	if len(sqls) <= 0 {
 		return ""
 	}
-	return fmt.Sprintf(alterSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"))
+	return fmt.Sprintf(alterSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"), partitionSql)
 }
 
 func (m Tables) GetFormatedTableNames() []string {
