@@ -16,13 +16,6 @@ type (
 		Engine         string
 		Version        int
 		RowFormat      string
-		TableRows      int
-		AvgRowLength   int
-		DataLength     int
-		MaxDataLength  int
-		IndexLength    int
-		DataFree       int
-		AutoIncrement  JsonNullInt64
 		TableCollation string
 		CheckSum       JsonNullString
 		CreateOptions  string
@@ -163,13 +156,6 @@ func GetTables(db *sql.DB, schema string, tableNames ...string) (Tables, error) 
 			&table.Engine,
 			&table.Version,
 			&table.RowFormat,
-			&table.TableRows,
-			&table.AvgRowLength,
-			&table.DataLength,
-			&table.MaxDataLength,
-			&table.IndexLength,
-			&table.DataFree,
-			&table.AutoIncrement,
 			&table.TableCollation,
 			&table.CheckSum,
 			&table.CreateOptions,

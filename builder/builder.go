@@ -174,8 +174,6 @@ func willAddIndex(old, new *mysql.Table) []string {
 		}
 		newIndices := newIndicesMap[keyName]
 		oldIndices := oldIndicesMap[keyName]
-		newIndices.ResetCardinality()
-		oldIndices.ResetCardinality()
 		if reflect.DeepEqual(oldIndices, newIndices) {
 			continue
 		}

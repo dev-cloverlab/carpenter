@@ -15,7 +15,6 @@ type (
 		SeqInIndex   int32
 		ColumnName   string
 		Collation    string
-		Cardinality  JsonNullInt64
 		SubPart      JsonNullString
 		Packed       JsonNullString
 		Null         string
@@ -57,14 +56,6 @@ func (m Index) KeyNamesWithSubPart() []string {
 		}
 	}
 	return names
-}
-
-func (m *Indices) ResetCardinality() {
-	for i := range *m {
-		for j := range (*m)[i] {
-			(*m)[i][j].Cardinality = JsonNullInt64{}
-		}
-	}
 }
 
 func (m Indices) ToSQL() []string {
@@ -174,7 +165,6 @@ func GetIndices(db *sql.DB, table string) (Indices, error) {
 			&idxCol.SeqInIndex,
 			&idxCol.ColumnName,
 			&idxCol.Collation,
-			&idxCol.Cardinality,
 			&idxCol.SubPart,
 			&idxCol.Packed,
 			&idxCol.Null,
