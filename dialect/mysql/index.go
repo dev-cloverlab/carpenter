@@ -155,6 +155,7 @@ func GetIndices(db *sql.DB, table string) (Indices, error) {
 	}
 	defer rows.Close()
 
+	dummy := JsonNullInt64{}
 	idxMap := map[string]Index{}
 	for rows.Next() {
 		idxCol := IndexColumn{}
@@ -165,6 +166,7 @@ func GetIndices(db *sql.DB, table string) (Indices, error) {
 			&idxCol.SeqInIndex,
 			&idxCol.ColumnName,
 			&idxCol.Collation,
+			&dummy,
 			&idxCol.SubPart,
 			&idxCol.Packed,
 			&idxCol.Null,
