@@ -26,7 +26,7 @@ type (
 		CollationName          JsonNullString
 		ColumnType             string
 		ColumnKey              string
-		Extra                  string
+		Extra                  JsonNullString
 		Privileges             string
 		ColumnComment          string
 	}
@@ -45,16 +45,16 @@ func (m *Column) IsMul() bool {
 	return m.ColumnKey == "MUL"
 }
 
-func (m *Column) IsAutoIncrement() bool {
-	return m.Extra == "auto_increment"
-}
-
 func (m *Column) IsNullable() bool {
 	return m.Nullable == "YES"
 }
 
 func (m *Column) HasDefault() bool {
 	return m.ColumnDefault.Valid
+}
+
+func (m *Column) HasExtra() bool {
+	return m.Extra.Valid
 }
 
 func (m *Column) HasCharacterSetName() bool {
@@ -68,12 +68,21 @@ func (m *Column) HasComment() bool {
 func (m *Column) FormatDefault() string {
 	var def string
 	switch m.DataType {
-	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext", "date", "datetime":
+	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext", "date":
 		def = QuoteString(m.ColumnDefault.String)
+	case "datetime":
+		def = QuoteString(m.ColumnDefault.String)
+		if m.ColumnDefault.String == "CURRENT_TIMESTAMP" {
+			def = m.ColumnDefault.String
+		}
 	default:
 		def = m.ColumnDefault.String
 	}
 	return def
+}
+
+func (m *Column) FormatExtra() string {
+	return m.Extra.String
 }
 
 func (m *Column) CompareCharacterSet(col *Column) bool {
@@ -88,8 +97,8 @@ func (m *Column) ToSQL() string {
 	if m.HasDefault() {
 		token = append(token, "default", m.FormatDefault())
 	}
-	if m.IsAutoIncrement() {
-		token = append(token, "auto_increment")
+	if m.HasExtra() {
+		token = append(token, m.FormatExtra())
 	}
 	if m.HasComment() {
 		token = append(token, "comment", QuoteString(m.ColumnComment))
