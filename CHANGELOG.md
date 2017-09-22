@@ -1,3 +1,22 @@
+## 0.4.7 (2017-09-22)
+
+### Added
+
+- Support Extra field of column information (e.g, auto_increment, ON UPDATE CURRENT_TIMESTAMP)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed that "CURRENT_TIMESTAMP" behaves as string
+
+
 ## 0.4.6 (2017-07-13)
 
 Bug fix
