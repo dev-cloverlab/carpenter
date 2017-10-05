@@ -1,3 +1,22 @@
+## 0.4.8 (2017-10-05)
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed the SQL syntax error when change column data type varchar to any
+
+
 ## 0.4.7 (2017-09-22)
 
 ### Added
