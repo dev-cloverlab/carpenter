@@ -77,7 +77,7 @@ func willAlterColumnCharacterSet(old, new *mysql.Table) []string {
 		}
 		newCol := newCols[colName]
 		oldCol := oldCols[colName]
-		if newCol.CharacterSetName.Valid && oldCol.CompareCharacterSet(newCol) {
+		if !newCol.CharacterSetName.Valid || oldCol.CompareCharacterSet(newCol) {
 			continue
 		}
 		oldCols[colName].CollationName = newCol.CollationName
