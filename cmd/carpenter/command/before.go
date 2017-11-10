@@ -2,6 +2,7 @@ package command
 
 import (
 	"database/sql"
+	"time"
 
 	"fmt"
 
@@ -30,6 +31,8 @@ func Before(c *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("err: db.Open is failed for reason %v", err)
 	}
+	db.SetMaxIdleConns(0)
 	db.SetMaxOpenConns(8)
+	db.SetConnMaxLifetime(time.Minute)
 	return nil
 }
