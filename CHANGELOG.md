@@ -1,3 +1,22 @@
+## 0.4.9 (2017-11-10)
+
+### Added
+
+- Modified MySQL connection settings (no idle connections)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed the SQL syntax error caused by column collation comparing
+
+
 ## 0.4.8 (2017-10-05)
 
 ### Added
