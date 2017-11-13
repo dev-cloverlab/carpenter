@@ -30,7 +30,7 @@ type (
 var (
 	createSQLFmt string = `create table if not exists %s (
 	%s
-) engine=%s default charset=%s %s`
+) engine=%s row_format=%s default charset=%s %s`
 	dropSQLFmt  string = `drop table if exists %s`
 	alterSQLFmt string = `alter table %s %s
 	%s`
@@ -70,7 +70,7 @@ func (m *Table) ToCreateSQL() string {
 	partitionSQL := m.Partitions.ToSQL()
 	sqls := make([]string, 0, len(columnSQLs)+len(indexSQLs))
 	sqls = append(columnSQLs, indexSQLs...)
-	return fmt.Sprintf(createSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"), m.Engine, m.GetCharset(), partitionSQL)
+	return fmt.Sprintf(createSQLFmt, m.GetFormatedTableName(), strings.Join(sqls, ",\n	"), m.Engine, m.GetCharset(), m.RowFormat, partitionSQL)
 }
 
 func (m *Table) ToDropSQL() string {
