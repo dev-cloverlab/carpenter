@@ -131,18 +131,21 @@ func (m Columns) ToSQL() []string {
 }
 
 func (m *Column) AppendPos(all Columns) string {
-	pos := "first"
-	if m.OrdinalPosition > 1 {
-		before := m.OrdinalPosition - 1
-		for _, v := range all {
-			if v.OrdinalPosition != before {
-				continue
-			}
-			pos = fmt.Sprintf("after %s", Quote(v.ColumnName))
-			break
+	name := "first"
+	if n := all.GetBeforeColumn(m); n != nil {
+		name = n.ColumnName
+	}
+	return fmt.Sprintf("after %s", Quote(name))
+}
+
+func (m Columns) GetBeforeColumn(col *Column) *Column {
+	search := col.OrdinalPosition - 1
+	for _, c := range m {
+		if c.OrdinalPosition == search {
+			return c
 		}
 	}
-	return pos
+	return nil
 }
 
 func (m Columns) ToAddSQL(all Columns) []string {
@@ -180,10 +183,12 @@ func (m Columns) GroupByColumnName() map[string]*Column {
 
 func (m Columns) GetSortedColumnNames() []string {
 	names := make([]string, 0, len(m))
+	sort.Slice(m, func(i, j int) bool {
+		return m[i].OrdinalPosition < m[j].OrdinalPosition
+	})
 	for _, column := range m {
 		names = append(names, column.ColumnName)
 	}
-	sort.Strings(names)
 	return names
 }
 

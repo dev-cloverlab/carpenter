@@ -138,17 +138,18 @@ func willModifyColumn(old, new *mysql.Table) []string {
 		oldTableSchema := oldCol.TableSchema
 		oldColumnKey := oldCol.ColumnKey
 		oldPrivileges := oldCol.Privileges
+		oldOrdinalPosition := oldCol.OrdinalPosition
 		oldCol.TableSchema = newCol.TableSchema
 		oldCol.ColumnKey = newCol.ColumnKey
 		oldCol.Privileges = newCol.Privileges
+		oldCol.OrdinalPosition = newCol.OrdinalPosition
 		if !reflect.DeepEqual(oldCol, newCol) {
-			sql := newCol.ToModifySQL()
-			sql = fmt.Sprintf("%s %s", sql, newCol.AppendPos(new.Columns))
-			sqls = append(sqls, sql)
+			sqls = append(sqls, newCol.ToModifySQL())
 		}
 		oldCol.TableSchema = oldTableSchema
 		oldCol.ColumnKey = oldColumnKey
 		oldCol.Privileges = oldPrivileges
+		oldCol.OrdinalPosition = oldOrdinalPosition
 	}
 	return sqls
 }
