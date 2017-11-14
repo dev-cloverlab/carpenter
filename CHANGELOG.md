@@ -1,3 +1,47 @@
+## 0.5.0 (2017-11-14)
+
+Carpenter 0.5.0 has been released.  
+
+Note:  
+This version has to become impossible to modify column positions.  
+But adding column is adjusted to expecting position.  
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- It's to become impossible to modify column positions when alter columns.
+
+### Fixed
+
+- Fixed that added column position to expected
+
+
+## 0.4.9 (2017-11-10)
+
+### Added
+
+- Modified MySQL connection settings (no idle connections)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed the SQL syntax error caused by column collation comparing
+
+
 ## 0.4.8 (2017-10-05)
 
 ### Added
