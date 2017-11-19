@@ -230,6 +230,9 @@ func GetChunk(db *sql.DB, table string, colName *string) (*Chunk, error) {
 			if b, ok := holders[i].([]byte); ok {
 				if v, err = strconv.ParseFloat(string(json.Number(string(b))), 64); err != nil {
 					v = string(b)
+					if v == "0000-00-00 00:00:00" || v == "0000-00-00" {
+						v = ""
+					}
 				}
 			} else {
 				v = holders[i]
