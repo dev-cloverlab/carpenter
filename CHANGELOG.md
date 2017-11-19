@@ -1,3 +1,24 @@
+## 0.5.1 (2017-11-19)
+
+Carpenter 0.5.1 has been released with some fixes.  
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Solved to escape value that contained double quote
+- Fixed the wrong time format that was 0000-00-00 when zero value
+
 ## 0.5.0 (2017-11-14)
 
 Carpenter 0.5.0 has been released.  

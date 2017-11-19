@@ -1,113 +1,73 @@
 # carpenter
 
-Carpenter is a tool to manage DB schema and data
+[![GitHub release](https://img.shields.io/github/release/dev-cloverlab/carpenter.svg?style=flat-square)](https://github.com/dev-cloverlab/carpenter)
+[![license](https://img.shields.io/github/license/dev-cloverlab/carpenter.svg?style=flat-square)](https://github.com/dev-cloverlab/carpenter)
 
-## Description
+carpenter is a tool to manage DB schema and data inspired by [naoina/migu](https://github.com/naoina/migu).  
+By using this, you can manage the database structures and data as text (JSON, CSV) and it can be versioned.  
+carpenter can restore the database structure and data from text, or can export them to text in easy.  
 
-Carpenter has three sub commands.
+**currently supported databases are MySQL|MariaDB only**
 
-- design
-    - `design` command is export table structure as JSON string
-- build
-    - `build` command is migrate table from JSON files
-- export
-    - `export` command is export table data as CSV string
-- import
-    - `import` command is import table data from CSV files
+# How to use
 
-## Usage
+carpenter has four simple commands are classified database `structure` and `data`. For each command is also available to use as indivisually.
 
-```bash
+## Commands for structure
 
-NAME:
-   carpenter - Carpenter is a tool to manage DB schema and data
+### design 
 
-USAGE:
-   carpenter [global options] command [command options] [arguments...]
-   
-VERSION:
-   0.2.0
-   
-AUTHOR(S):
-   hatajoe <hatanaka@cloverlab.jp> 
-   
-COMMANDS:
-     design   Export table structure as JSON string
-     build    Build(Migrate) table from specified JSON string
-     import   Import CSV to table
-     export   Export CSV to table
-     help, h  Shows a list of commands or help for one command
+`design` command can export database structure as JSON. By doing below, exports JSON file named `table.json` to current directory.
 
-GLOBAL OPTIONS:
-   --verbose, --vv                show verbose output (default off)
-   --dry-run                      execute as dry-run mode (default off)
-   --schema value, -s value       database name (required)
-   --data-source value, -d value  data source name like '[username[:password]@][tcp[(address:port)]]' (required)
-   --help, -h                     show help
-   --version, -v                  print the version
+```
+% carpenter -s test -d "root:@tcp(127.0.0.1:3306)" design -d ./
 ```
 
-### design
+When you want to separate files for each tables, you can set `-s` option.  
 
-```bash
-NAME:
-   commands design - Export table structure as JSON string
+options:
 
-USAGE:
-   commands design [command options] [arguments...]
+- `-s` export JSON files are separated for each table (default off)
+- `-p` pretty output (default off)
+- `-d` export directory path
 
-OPTIONS:
-   --separate, -s         output for each table (default off)
-   --pretty, -p           pretty output (default off)
-   --dir value, -d value  path to export directory (default execution dir)
-```
+Each option has alternative long name. Please see the help for details.
 
 ### build
 
-```bash
-NAME:
-   carpenter build - Build(Migrate) table from specified JSON string
+`build` command can restore database structure from JSON files. By doing below, generate the difference SQLs between tables and JSON files and execute them.
 
-USAGE:
-   carpenter build [command options] [arguments...]
+```
+% carpenter -s test -d "root:@tcp(127.0.0.1:3306)" build -d .
+```
 
-OPTIONS:
-   --dir value, -d value  path to JSON file directory (required)
+When you want to just show the generated SQLs, you can set `--dry-run` global option.
+
+## Commands for data
+
+### export
+
+`export` command can export data as CSV files. By doing below, export data as CSV files for each table.
+
+```
+% carpenter -s test -d "root:@tcp(127.0.0.1:3306)" export -d .
+```
+
+When you want to select exporting tables, you can set regular expression to `-r` option like below.
+
+```
+% carpenter -s test -d "root:@tcp(127.0.0.1:3306)" export -r "^master_*$" -d .
 ```
 
 ### import
 
-```bash
-NAME:
-   carpenter import - Import CSV to table
+`import` command can import CSV files to tables. By doing below, generate the difference SQLs between tables and CSV files and execute them.
 
-USAGE:
-   carpenter import [command options] [arguments...]
-
-OPTIONS:
-   --dir value, -d value  path to CSV file directory (required)
+```
+% carpenter -s test -d "root:@tcp(127.0.0.1:3306)" import -d .
 ```
 
-NOTICE:
-
-- All tables require an id column
-- If you include a line break, please enclose it in double quotation marks
-- Please do not put double quotes in double quotes
-
-### export
-
-```bash
-NAME:
-   carpenter export - Export CSV to table
-
-USAGE:
-   carpenter export [command options] [arguments...]
-
-OPTIONS:
-   --dir value, -d value     path to export directory (required)
-   --regexp value, -r value  regular expression for exporting table (default all)
-   
-```
+When you want to just show the generated SQLs, you can set `--dry-run` global option.
 
 ## Install
 
@@ -116,11 +76,57 @@ OPTIONS:
 % brew install dev-cloverlab/carpenter
 ```
 
-To install, use `go get`:
+for Gophers.
 
-```bash
-$ go get github.com/dev-cloverlab/carpenter/cmd/carpenter
 ```
+% go get github.com/dev-cloverlab/carpenter/cmd/carpenter
+```
+
+## Architecture
+
+Explain how carpenter syncronizes text and database.  
+
+MySQL(MariaDB) has information table that has table, column, index and partition information. carpenter refers that and translate it to JSON, and unmarshal it to struct. Both of structs that are made from database and files can compare each field type and etc. When some difference are found for each field, carpenter generates SQLs for resolve differences.
+
+For example:
+
+```
+// about member table
+
+// database
++-------+--------------+------+
+| Field | Type         | Null |
++-------+--------------+------+
+| name  | varchar(255) | NO   |
+| email | varchar(255) | NO   |
++-------+--------------+------+
+
+// file
++--------+--------------+------+
+| Field  | Type         | Null |
++--------+--------------+------+
+| name   | varchar(255) | NO   |
+| email  | varchar(255) | NO   |
+| gender | tinyint(4)   | NO   |
++--------+--------------+------+
+```
+
+To generate this.
+
+```sql
+alter table `member` add `gender` tinyint(4) not null after `email`
+```
+
+carpenter can generate SQLs at various scenes like:
+
+- CREATE
+- DROP
+- ALTER
+- INSERT
+- REPLACE
+- DELETE
+
+These SQLs are generated by difference of both information structs.
 
 ## Contribution
 

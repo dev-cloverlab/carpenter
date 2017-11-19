@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type JsonNullInt64 struct {
@@ -81,5 +82,8 @@ func QuoteMulti(names []string) []string {
 }
 
 func QuoteString(name string) string {
+	if strings.Contains(name, "\"") {
+		name = strings.Replace(name, "\"", "\"\"", -1)
+	}
 	return fmt.Sprintf("\"%s\"", name)
 }
