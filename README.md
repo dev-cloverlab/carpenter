@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/github/license/dev-cloverlab/carpenter.svg?style=flat-square)](https://github.com/dev-cloverlab/carpenter)
 
 carpenter is a tool to manage DB schema and data inspired by [naoina/migu](https://github.com/naoina/migu).  
-By using this, you can manage the database structures and data as text (JSON, CSV) and it can be versioned.  
+By using this, you can manage the database structures and data as text (JSON, CSV). 
 carpenter can restore the database structure and data from text, or can export them to text in easy.  
 
 **currently supported databases are MySQL|MariaDB only**
