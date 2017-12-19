@@ -21,6 +21,20 @@ func CmdSeed(c *cli.Context) {
 	if len(errs) > 0 {
 		panic(fmt.Errorf("err: makeSeedQueries failed for reason\n%s", strings.Join(getErrorMessages(errs), "\n")))
 	}
+
+	ignoreForeignKey := c.Bool("ignore-foreign-key")
+	if ignoreForeignKey {
+		queries = append([]string{mysql.ForeignKeyCheck(false)}, queries...)
+
+		defer func() {
+
+			// TODO (tacogips) defer ResetForeginKeyCheckSettingSomehow()
+			if err := execute([]string{mysql.ForeignKeyCheck(true)}); err != nil {
+				panic(fmt.Errorf("err: execute failed for reason %s", err))
+			}
+		}()
+	}
+
 	if err := execute(queries); err != nil {
 		panic(fmt.Errorf("err: execute failed for reason %s", err))
 	}

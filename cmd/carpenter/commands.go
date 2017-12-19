@@ -79,6 +79,11 @@ var Commands = []cli.Command{
 				Usage:  "path to CSV file directory (required)",
 				Hidden: false,
 			},
+			cli.BoolFlag{
+				Name:   "ignore-foreign-key, i",
+				Usage:  "ignore foreign key check",
+				Hidden: false,
+			},
 		},
 	},
 	{
