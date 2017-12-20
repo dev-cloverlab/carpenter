@@ -27,8 +27,6 @@ func CmdSeed(c *cli.Context) {
 		queries = append([]string{mysql.ForeignKeyCheck(false)}, queries...)
 
 		defer func() {
-
-			// TODO (tacogips) defer ResetForeginKeyCheckSettingSomehow()
 			if err := execute([]string{mysql.ForeignKeyCheck(true)}); err != nil {
 				panic(fmt.Errorf("err: execute failed for reason %s", err))
 			}
