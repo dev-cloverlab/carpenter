@@ -31,8 +31,8 @@ func Before(c *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("err: db.Open is failed for reason %v", err)
 	}
-	db.SetMaxIdleConns(0)
-	db.SetMaxOpenConns(8)
+	db.SetMaxIdleConns(1)
+	db.SetMaxOpenConns(1)
 	db.SetConnMaxLifetime(time.Minute)
 	return nil
 }
