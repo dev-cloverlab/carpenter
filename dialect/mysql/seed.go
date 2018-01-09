@@ -233,6 +233,10 @@ func GetChunk(db *sql.DB, table string, colName *string) (*Chunk, error) {
 					if v == "0000-00-00 00:00:00" || v == "0000-00-00" {
 						v = ""
 					}
+				} else {
+					if len(string(b)) > 1 && string(string(b)[0]) == "0" {
+						v = string(b)
+					}
 				}
 			} else {
 				v = holders[i]
