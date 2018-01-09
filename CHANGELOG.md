@@ -1,3 +1,21 @@
+## 0.5.1 (2018-01-09)
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed the exporting bug that when column contains 0 value at the beginning of the string
+
 ## 0.5.1 (2017-11-19)
 
 Carpenter 0.5.1 has been released with some fixes.  
