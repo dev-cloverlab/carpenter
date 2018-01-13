@@ -1,4 +1,23 @@
-## 0.5.1 (2018-01-09)
+## 0.5.3 (2018-01-13)
+
+### Added
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fixed the importing bug that when column contains 0 value at the beginning of the string
+
+
+## 0.5.2 (2018-01-09)
 
 ### Added
 
