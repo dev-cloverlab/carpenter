@@ -115,6 +115,10 @@ func parseCSV(tableName, filename string) (columnNames []string, seeds mysql.See
 					v = nil
 				} else if v, err = strconv.ParseFloat(r, 64); err != nil {
 					v = r
+				} else {
+					if len(string(r)) > 1 && string(string(r)[0]) == "0" {
+						v = string(r)
+					}
 				}
 				columnData = append(columnData, v)
 			}
