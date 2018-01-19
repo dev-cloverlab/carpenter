@@ -14,11 +14,16 @@ var db *sql.DB
 var schema string
 var verbose bool
 var dryrun bool
+var maxIdleConns int
+var maxOpenConns int
 
 func Before(c *cli.Context) error {
 	verbose = c.GlobalBool("verbose")
 	dryrun = c.GlobalBool("dry-run")
 	schema = c.GlobalString("schema")
+	maxIdleConns = c.GlobalInt("max-idle-conns")
+	maxOpenConns = c.GlobalInt("max-open-conns")
+
 	if len(schema) <= 0 {
 		return fmt.Errorf("err: Specify required `--schema' option")
 	}
@@ -31,8 +36,8 @@ func Before(c *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("err: db.Open is failed for reason %v", err)
 	}
-	db.SetMaxIdleConns(1)
-	db.SetMaxOpenConns(1)
+	db.SetMaxIdleConns(maxIdleConns)
+	db.SetMaxOpenConns(maxOpenConns)
 	db.SetConnMaxLifetime(time.Minute)
 	return nil
 }
