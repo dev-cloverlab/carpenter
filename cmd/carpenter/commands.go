@@ -29,6 +29,18 @@ var GlobalFlags = []cli.Flag{
 		Usage:  "data source name like '[username[:password]@][tcp[(address:port)]]' (required)",
 		Hidden: false,
 	},
+	cli.IntFlag{
+		Name:   "max-idle-conns, mi",
+		Usage:  "max idel database connection setting",
+		Hidden: false,
+		Value:  0,
+	},
+	cli.IntFlag{
+		Name:   "max-open-conns, mo",
+		Usage:  "max open database connection setting",
+		Hidden: false,
+		Value:  8,
+	},
 }
 
 var Commands = []cli.Command{
@@ -77,6 +89,11 @@ var Commands = []cli.Command{
 			cli.StringFlag{
 				Name:   "dir, d",
 				Usage:  "path to CSV file directory (required)",
+				Hidden: false,
+			},
+			cli.BoolFlag{
+				Name:   "ignore-foreign-key, i",
+				Usage:  "ignore foreign key check",
 				Hidden: false,
 			},
 		},
