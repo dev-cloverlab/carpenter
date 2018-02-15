@@ -1,3 +1,25 @@
+## 0.5.4 (2018-02-15)
+
+### Added
+
+- Added two global command line options which related database connection
+  - see also the discuss: #32
+  - --max-idle-conns
+  - --max-open-conns
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
+
 ## 0.5.3 (2018-01-13)
 
 ### Added
