@@ -8,7 +8,7 @@ import (
 	"github.com/dev-cloverlab/carpenter/dialect/mysql"
 )
 
-func Build(db *sql.DB, old, new *mysql.Table) (queries []string, err error) {
+func Build(db *sql.DB, old, new *mysql.Table, withDrop bool) (queries []string, err error) {
 	if old == nil && new == nil {
 		return queries, fmt.Errorf("err: Both pointer of the specified new and old is nil.")
 	}
@@ -21,8 +21,10 @@ func Build(db *sql.DB, old, new *mysql.Table) (queries []string, err error) {
 	if q := willCreate(old, new); len(q) > 0 {
 		queries = append(queries, q)
 	}
-	if q := willDrop(old, new); len(q) > 0 {
-		queries = append(queries, q)
+	if withDrop {
+		if q := willDrop(old, new); len(q) > 0 {
+			queries = append(queries, q)
+		}
 	}
 	if q := willAlterTableCharacterSet(old, new); len(q) > 0 {
 		queries = append(queries, q)

@@ -15,7 +15,8 @@ import (
 func CmdBuild(c *cli.Context) {
 	// Write your code here
 	dirPath := c.String("dir")
-	queries, errs := makeBuildQueries(dirPath)
+	withDrop := c.Bool("with-drop")
+	queries, errs := makeBuildQueries(dirPath, withDrop)
 	if len(errs) > 0 {
 		panic(fmt.Errorf("err: makeQueries failed for reason\n%s", strings.Join(getErrorMessages(errs), "\n")))
 	}
@@ -24,7 +25,7 @@ func CmdBuild(c *cli.Context) {
 	}
 }
 
-func makeBuildQueries(path string) (queries []string, errs []error) {
+func makeBuildQueries(path string, withDrop bool) (queries []string, errs []error) {
 	files, err := walk(path, ".json")
 	if err != nil {
 		return nil, []error{err}
@@ -73,7 +74,7 @@ func makeBuildQueries(path string) (queries []string, errs []error) {
 		wg.Add(1)
 		go func(o, n *mysql.Table) {
 			defer wg.Done()
-			queries, err := builder.Build(db, o, n)
+			queries, err := builder.Build(db, o, n, withDrop)
 			if err != nil {
 				errCh <- err
 				return

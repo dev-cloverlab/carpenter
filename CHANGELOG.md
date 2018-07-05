@@ -1,3 +1,22 @@
+## 0.6.0 (2018-07-05)
+
+### Added
+
+- drop table only for if JSON file exist (as a default)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
+
 ## 0.5.4 (2018-02-15)
 
 ### Added
