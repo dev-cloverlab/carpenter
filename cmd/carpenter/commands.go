@@ -78,6 +78,11 @@ var Commands = []cli.Command{
 				Usage:  "path to JSON file directory (required)",
 				Hidden: false,
 			},
+			cli.BoolFlag{
+				Name:   "with-drop",
+				Usage:  "drop table when if JSON file does not exist",
+				Hidden: false,
+			},
 		},
 	},
 	{
