@@ -131,11 +131,10 @@ func (m Columns) ToSQL() []string {
 }
 
 func (m *Column) AppendPos(all Columns) string {
-	name := "first"
 	if n := all.GetBeforeColumn(m); n != nil {
-		name = n.ColumnName
+		return fmt.Sprintf("after %s", Quote(n.ColumnName))
 	}
-	return fmt.Sprintf("after %s", Quote(name))
+	return "first"
 }
 
 func (m Columns) GetBeforeColumn(col *Column) *Column {
