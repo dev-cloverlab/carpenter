@@ -126,6 +126,22 @@ func TestSingleDrop(t *testing.T) {
 	}
 }
 
+func TestDateTimeDefaultNull(t *testing.T) {
+	new, err := getTables("./_test/table3.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	actual, err := Build(db, nil, new[0], true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, sql := range actual {
+		if _, err := db.Exec(sql); err != nil {
+			t.Fatalf("err: %s\nsql: %s", err, sql)
+		}
+	}
+}
+
 func getTables(filename string) (mysql.Tables, error) {
 	buf, err := ioutil.ReadFile(filename)
 	if err != nil {

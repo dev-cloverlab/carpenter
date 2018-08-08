@@ -66,6 +66,10 @@ func (m *Column) HasComment() bool {
 }
 
 func (m *Column) FormatDefault() string {
+	if m.ColumnDefault.NullString.Valid {
+		return m.ColumnDefault.String
+	}
+
 	var def string
 	switch m.DataType {
 	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext", "date":
