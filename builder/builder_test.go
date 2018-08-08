@@ -6,29 +6,32 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"reflect"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/dev-cloverlab/carpenter/dialect/mysql"
+	"reflect"
 )
 
 var (
 	db     *sql.DB
-	schema = "test"
+	schema = "mysql"
 )
 
 func init() {
 	var err error
-	db, err = sql.Open("mysql", fmt.Sprintf("root@/%s", schema))
+	db, err = sql.Open("mysql", fmt.Sprintf("root:root@/%s", schema))
 	if err != nil {
 		panic(err)
 	}
 }
 
 func TestMain(m *testing.M) {
+	db.Exec("CREATE DATABASE IF NOT EXISTS `test`")
+	db.Exec("USE `test`")
 	code := m.Run()
 	db.Exec("drop table if exists `build_test`")
+	db.Exec("DROP DATABASE `test`")
 	os.Exit(code)
 }
 
@@ -40,19 +43,19 @@ func TestSingleCreate(t *testing.T) {
 	expected := []string{
 		"create table if not exists `build_test` (\n" +
 			"	`id` int(11) unsigned not null auto_increment,\n" +
-			"	`name` varchar(64) not null,\n" +
-			"	`email` varchar(255) not null,\n" +
-			"	`gender` tinyint(4) not null,\n" +
-			"	`country` int(11) not null,\n" +
-			"	`created_at` datetime not null,\n" +
-			"	`deleted_at` datetime,\n" +
+			"	`name` varchar(64) not null ,\n" +
+			"	`email` varchar(255) not null ,\n" +
+			"	`gender` tinyint(4) not null ,\n" +
+			"	`country` int(11) not null ,\n" +
+			"	`created_at` datetime not null ,\n" +
+			"	`deleted_at` datetime ,\n" +
 			"	primary key (`id`),\n" +
 			"	unique key `name` (`name`),\n" +
 			"	key `k1` (`deleted_at`),\n" +
 			"	key `k2` (`gender`,`country`)\n" +
-			") engine=InnoDB default charset=utf8",
+			") engine=InnoDB default charset=utf8 ",
 	}
-	actual, err := Build(db, nil, new[0])
+	actual, err := Build(db, nil, new[0], true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,19 +79,18 @@ func TestAlter(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := []string{
-		"alter table `build_test`\n" +
-			"	drop key `k2`,\n" +
+		"alter table `build_test` drop key `k2`,\n" +
 			"	drop key `name`,\n" +
 			"	drop `deleted_at`,\n" +
-			"	add `uuid` varchar(64) not null first,\n" +
-			"	add `icon` text not null after `email`,\n" +
+			"	add `uuid` varchar(64) not null  first,\n" +
+			"	add `icon` text not null  after `email`,\n" +
 			"	add unique key `email` (`email`),\n" +
 			"	drop key `k1`,\n" +
 			"	add key `k1` (`created_at`),\n" +
 			"	add key `k3` (`gender`),\n" +
-			"	modify `country` tinyint(4) not null",
+			"	modify `country` tinyint(4) not null \n\t",
 	}
-	actual, err := Build(db, old[0], new[0])
+	actual, err := Build(db, old[0], new[0], true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -110,7 +112,7 @@ func TestSingleDrop(t *testing.T) {
 	expected := []string{
 		"drop table if exists `build_test`",
 	}
-	actual, err := Build(db, old[0], nil)
+	actual, err := Build(db, old[0], nil, true)
 	if err != nil {
 		t.Fatal(err)
 	}
