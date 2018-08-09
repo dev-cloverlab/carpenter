@@ -16,11 +16,13 @@ import (
 var (
 	db     *sql.DB
 	schema = "mysql"
+	address = "127.0.0.1"
+	port = "3306"
 )
 
 func init() {
 	var err error
-	db, err = sql.Open("mysql", fmt.Sprintf("root:root@/%s", schema))
+	db, err = sql.Open("mysql", fmt.Sprintf("root:root@tcp(%s:%s)/%s", address, port, schema))
 	if err != nil {
 		panic(err)
 	}
