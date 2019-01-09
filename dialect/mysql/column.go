@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"sort"
 	"strings"
+	"regexp"
 )
 
 type (
@@ -65,7 +66,18 @@ func (m *Column) HasComment() bool {
 	return m.ColumnComment != ""
 }
 
+func (m *Column) HasDefaultValueNull() bool {
+	if r, err := regexp.MatchString(`(?i)null`, m.ColumnDefault.String); !r || err != nil {
+		return false
+	}
+	return true
+}
+
 func (m *Column) FormatDefault() string {
+	if m.HasDefaultValueNull() {
+		return m.ColumnDefault.String
+	}
+
 	var def string
 	switch m.DataType {
 	case "char", "varchar", "tinyblob", "blob", "mediumblob", "longblob", "tinytext", "text", "mediumtext", "longtext", "date":
