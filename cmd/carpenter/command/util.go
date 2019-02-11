@@ -23,7 +23,7 @@ func execute(queries []string) error {
 			}
 		}
 		if verbose {
-			fmt.Println(query)
+			fmt.Println(query + ";")
 		}
 	}
 	return nil
