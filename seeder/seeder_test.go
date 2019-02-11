@@ -30,7 +30,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	createSQL, err := builder.Build(db, nil, new[0])
+	createSQL, err := builder.Build(db, nil, new[0], true)
 	if err != nil {
 		panic(err)
 	}
