@@ -16,11 +16,13 @@ import (
 var (
 	db     *sql.DB
 	schema = "mysql"
+	address = "127.0.0.1"
+	port = "3306"
 )
 
 func init() {
 	var err error
-	db, err = sql.Open("mysql", fmt.Sprintf("root:root@/%s", schema))
+	db, err = sql.Open("mysql", fmt.Sprintf("root:root@tcp(%s:%s)/%s", address, port, schema))
 	if err != nil {
 		panic(err)
 	}
@@ -122,6 +124,22 @@ func TestSingleDrop(t *testing.T) {
 	for _, sql := range actual {
 		if _, err := db.Exec(sql); err != nil {
 			t.Fatal(err)
+		}
+	}
+}
+
+func TestDateTimeDefaultNull(t *testing.T) {
+	new, err := getTables("./_test/table3.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	actual, err := Build(db, nil, new[0], true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, sql := range actual {
+		if _, err := db.Exec(sql); err != nil {
+			t.Fatalf("err: %s\nsql: %s", err, sql)
 		}
 	}
 }
