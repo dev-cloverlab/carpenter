@@ -7,7 +7,20 @@ carpenter is a tool to manage DB schema and data inspired by [naoina/migu](https
 By using this, you can manage the database structures and data as text (JSON, CSV). 
 carpenter can restore the database structure and data from text, or can export them to text in easy.  
 
-**currently supported databases are MySQL|MariaDB only**
+**supported databases are MySQL|MariaDB only currently**
+
+## Install
+
+```
+% brew tap dev-cloverlab/carpenter
+% brew install carpenter
+```
+
+for Gophers.
+
+```
+% go get -u github.com/dev-cloverlab/carpenter
+```
 
 # How to use
 
@@ -68,19 +81,6 @@ When you want to select exporting tables, you can set regular expression to `-r`
 ```
 
 When you want to just show the generated SQLs, you can set `--dry-run` global option.
-
-## Install
-
-```
-% brew tap dev-cloverlab/carpenter
-% brew install dev-cloverlab/carpenter
-```
-
-for Gophers.
-
-```
-% go get github.com/dev-cloverlab/carpenter/cmd/carpenter
-```
 
 ## Architecture
 
