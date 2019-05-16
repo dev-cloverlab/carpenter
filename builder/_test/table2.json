@@ -156,7 +156,7 @@
 					"Valid": true
 				},
 				"CollationName": {
-					"String": "utf8_general_ci",
+					"String": "utf8_bin",
 					"Valid": true
 				},
 				"ColumnType": "varchar(64)",
