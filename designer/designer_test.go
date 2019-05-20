@@ -40,10 +40,6 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
-	_, err = db.Exec("DROP DATABASE `" + schema + "`")
-	if err != nil {
-		panic(err)
-	}
 	os.Exit(code)
 }
 
