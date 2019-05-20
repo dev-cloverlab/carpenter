@@ -8,32 +8,39 @@ import (
 	"os"
 	"testing"
 
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/dev-cloverlab/carpenter/dialect/mysql"
 	"reflect"
+
+	"github.com/dev-cloverlab/carpenter/dialect/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
 	db     *sql.DB
-	schema = "mysql"
-	address = "127.0.0.1"
-	port = "3306"
+	schema = "carpenter_test"
 )
 
 func init() {
 	var err error
-	db, err = sql.Open("mysql", fmt.Sprintf("root:root@tcp(%s:%s)/%s", address, port, schema))
+	db, err = sql.Open("mysql", fmt.Sprintf("root@/"))
 	if err != nil {
 		panic(err)
 	}
 }
 
 func TestMain(m *testing.M) {
-	db.Exec("CREATE DATABASE IF NOT EXISTS `test`")
-	db.Exec("USE `test`")
+	_, err := db.Exec("CREATE DATABASE IF NOT EXISTS `" + schema + "`")
+	if err != nil {
+		panic(err)
+	}
+	_, err = db.Exec("USE `" + schema + "`")
+	if err != nil {
+		panic(err)
+	}
 	code := m.Run()
-	db.Exec("drop table if exists `build_test`")
-	db.Exec("DROP DATABASE `test`")
+	_, err = db.Exec("drop table if exists `build_test`")
+	if err != nil {
+		panic(err)
+	}
 	os.Exit(code)
 }
 

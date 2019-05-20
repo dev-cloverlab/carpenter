@@ -17,12 +17,23 @@ import (
 
 var (
 	db     *sql.DB
-	schema = "test"
+	schema = "carpenter_test"
 )
 
 func init() {
 	var err error
-	db, err = sql.Open("mysql", fmt.Sprintf("root@/%s", schema))
+	db, err = sql.Open("mysql", "root@/")
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TestMain(m *testing.M) {
+	_, err := db.Exec("CREATE DATABASE IF NOT EXISTS `" + schema + "`")
+	if err != nil {
+		panic(err)
+	}
+	_, err = db.Exec("USE `" + schema + "`")
 	if err != nil {
 		panic(err)
 	}
@@ -39,11 +50,11 @@ func init() {
 			panic(err)
 		}
 	}
-}
-
-func TestMain(m *testing.M) {
 	code := m.Run()
-	db.Exec("drop table if exists `seed_test`")
+	_, err = db.Exec("drop table if exists `seed_test`")
+	if err != nil {
+		panic(err)
+	}
 	os.Exit(code)
 }
 
