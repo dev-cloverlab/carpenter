@@ -88,7 +88,8 @@ func TestAlter(t *testing.T) {
 		t.Fatal(err)
 	}
 	expected := []string{
-		"alter table `build_test` drop key `k2`,\n" +
+		"alter table `build_test` modify `name` varchar(64) character set utf8 collate utf8_bin,\n" +
+			"	drop key `k2`,\n" +
 			"	drop key `name`,\n" +
 			"	drop `deleted_at`,\n" +
 			"	add `uuid` varchar(64) not null  first,\n" +

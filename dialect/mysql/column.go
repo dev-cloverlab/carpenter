@@ -101,6 +101,10 @@ func (m *Column) CompareCharacterSet(col *Column) bool {
 	return reflect.DeepEqual(m.CharacterSetName, col.CharacterSetName)
 }
 
+func (m *Column) CompareCollation(col *Column) bool {
+	return reflect.DeepEqual(m.CollationName, col.CollationName)
+}
+
 func (m *Column) ToSQL() string {
 	token := []string{Quote(m.ColumnName), m.ColumnType}
 	if !m.IsNullable() {
